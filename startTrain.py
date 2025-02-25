@@ -30,7 +30,7 @@ gamma = 0.9
 lr = .85
 rList = []
 
-# 训练阶段
+# Training phase
 for i in range(episodes):
     state, reward, done = maze.reset()
     action = None
@@ -49,7 +49,7 @@ for i in range(episodes):
         steps_text = font.render(f"Episode: {i + 1}/{episodes}, Step: {step}", True, (255, 255, 255))
         window.blit(steps_text, (10, 10))
         pygame.display.flip()
-        pygame.time.Clock().tick(10)  # 训练阶段加快速度，每秒10帧
+        pygame.time.Clock().tick(20)  # Speed up during training phase, 20 frames per second
 
         new_state, reward, done = maze.move(action)  # return new_state, reward, done
         # Update Q table
@@ -67,7 +67,7 @@ for i in range(episodes):
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
     rList.append(rAll)
-    print(i + 1, '/', episodes, 'Accumulated Reward:', rAll)
+    print(i + 1, '/', episodes, 'Accumulated Reward:', rAll, 'Steps:', step)
 
 print("Final Q-Table Values")
 print(Q)
@@ -76,7 +76,7 @@ plt.xlabel("Episodes")
 plt.ylabel("Accumulated rewards")
 plt.show()
 
-# 最终展示阶段
+# Final display phase
 while True:
     state, reward, done = maze.reset()
     while not done:
@@ -94,4 +94,4 @@ while True:
                 if event.key == pygame.K_ESCAPE:
                     sys.exit()
         pygame.display.flip()
-        pygame.time.Clock().tick(2)  # 最终展示阶段正常速度，每秒2帧
+        pygame.time.Clock().tick(2)  # Normal speed during final display phase, 2 frames per second
